@@ -48,6 +48,9 @@ class Fixture
     @json = []
     @el.innerHTML = ''
 
+  setBasePath: (base) ->
+    @base = base
+
   _add_fixture: (html_string) ->
     temp_div = document.createElement('div')
     temp_div.innerHTML = html_string
@@ -61,6 +64,7 @@ class Fixture
         results.push i
         eval i.innerText if i.nodeName is 'SCRIPT'
     return results
+
 
 if typeof exports is "object"
   module.exports = Fixture
