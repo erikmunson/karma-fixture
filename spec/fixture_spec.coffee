@@ -260,3 +260,23 @@ describe 'Fixture', ->
       it 'empties fixture container', ->
         expect(@fixture_cont.innerHTML).to.equal ''
 
+    describe 'setBasePath', ->
+      template_name = 'html1'
+      new_base_path = 'checkcheck'
+
+      beforeEach ->
+        load_template_as_karma_html2js template_name, html_template1, new_base_path
+
+        @instance.setBasePath new_base_path
+        @result = @instance.load template_name
+
+      afterEach ->
+        cleanup_karma_html2js_templates()
+
+      it 'sets @.base dynamically', ->
+        expect(@instance.base)
+          .to.equal new_base_path
+
+      it 'loads templates from new path after setting', ->
+        expect(@result[0].outerHTML)
+          .to.equal window.__html__["#{new_base_path}/#{template_name}"]
